@@ -1,0 +1,45 @@
+main {font-family: "Karla", sans-serif; background-color: #d0d0ce; min-height: 100vh; }
+.brand-wrapper { margin-bottom: 19px; }
+.brand-wrapper .logo { height: 37px; }
+.registerProd-card { border: 0; border-radius: 27.5px; box-shadow: 0 10px 30px 0 rgba(172, 168, 168, 0.43); overflow: hidden;  background-color: #ffffff;margin:40px 0}
+.registerProd-card-img { border-radius: 0; position: absolute; width: 100%; height: 100%; -o-object-fit: cover; object-fit: cover; }
+.registerProd-card .card-body {padding:40px; }
+@media (max-width: 422px) 
+{ 
+  .registerProd-card .card-body
+   {
+    padding: 35px 24px; 
+   } 
+}
+.registerProd-card-description {font-size: 25px; color: #000; font-weight: normal; margin-bottom: 23px; }
+.registerProd-card form { max-width: 326px; }
+.registerProd-card .form-control { border: 1px solid #d5dae2; padding: 15px 25px; margin-bottom: 20px; min-height: 45px; font-size: 13px; line-height: 15; font-weight: normal; }
+.registerProd-card .form-control::-webkit-input-placeholder { color: #919aa3; }
+.registerProd-card .form-control::-moz-placeholder { color: #919aa3; }
+.registerProd-card .form-control:-ms-input-placeholder { color: #919aa3; }
+.registerProd-card .form-control::-ms-input-placeholder { color: #919aa3; }
+.registerProd-card .form-control::placeholder { color: #919aa3; }
+.registerProd-card .registerProd-btn { padding: 13px 20px 12px; background-color: #000; border-radius: 4px; font-size: 17px; font-weight: bold; line-height: 20px; color: #fff; margin-bottom: 24px; }
+.registerProd-card .btn:hover { border: 1px solid #000; background-color: transparent; color: #000; }
+.registerProd-card .forgot-password-link { font-size: 14px; color: #919aa3; margin-bottom: 12px; }
+.registerProd-card-footer-text { font-size: 16px; color: #0d2366; margin-bottom: 60px; }
+@media (max-width: 767px) 
+{
+    .registerProd-card-footer-text 
+    {
+        margin-bottom: 24px;
+    }
+}
+.registerProd-card-footer-nav a {font-size: 14px; color: #919aa3; }
+  
+
+/* addproduct */
+.registerProd-form{flex-wrap:wrap;max-width:100%!important;display: flex; }
+.registerProd-form .form-group{flex-basis:calc(50% - 15px);}
+.registerProd-buttons{display: inline-block;width:100%;}
+.registerProd-form textarea{line-height: 1!important;}
+.registerProd-form .textarea-frm{flex-basis:100%}
+.registerProd-form img {border: 1px solid #ddd; border-radius: 4px; padding: 5px; width: auto; height: 100px;}
+.registerProd-form img:hover { box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);}
+.uploadBox{border: 1px solid #d5dae2; padding: 5px; display:flex ;  align-items: center; flex-basis: 100%!important;}
+.uploadBox input{flex-grow:1}
