@@ -11,13 +11,11 @@ import Profile from '../components/profile/profile';
 import UserProducts from '../components/userProducts/userProducts';
 import ProductDetail from '../components/productDetail/productDetail';
 import Admin from '../components/admin/admin';
-import EditProduct from '../components/admin/editProduct'
-import AuthService from './apiService';
+import ProductLists from '../components/admin/productLists'
+import EditProducts from '../components/admin/editProducts';
 
-const RouteService = () => {
-
-    const {http, getUser} = AuthService();
-    if(getUser())
+const RouteService = ({IsLoggedIn}) => {
+    if(IsLoggedIn)
     {
         return ( 
             <>
@@ -28,12 +26,13 @@ const RouteService = () => {
                 <Route path='/productdetail/:id' element={<ProductDetail/>}/>
                 <Route path='/userproducts' element={<UserProducts/>}/>
                 <Route path='/profile' element={<Profile/>}/>
-                {/* <Route path='/logout' element={<Logout/>}/> */}
+                <Route path='/logout' element={<Logout/>}/>
                 <Route path='/admin' element={<Admin />}/>
-                <Route path='/editproduct/:userName' element={<EditProduct />}/>
+                <Route path='/editproducts/:userId/:userName' element={<EditProducts />}/>
+                <Route path='/productlists/:userName' element={<ProductLists />}/>
                 {/* <Route path='/profile/:Id' element={<Profile/>}/> */}
                 <Route path='/' element={<Products/>}/>
-                <Route path='*' element={<Login/>}/>
+                {/* <Route path='*' element={<PageNotFound/>}/> */}
             </Routes>
             </>
          );
@@ -41,11 +40,17 @@ const RouteService = () => {
     else{
         return ( 
             <Routes>
+                {/* <Route path='/register' element={<Register/>}/>
+                <Route path='/profile' element={<Profile/>}/>
+                <Route path='/profile/:Id' element={<Profile/>}/>
+                <Route path='/home' element={<Home/>}/>
+                <Route path='/' element={<Home/>}/> */}
                 <Route path='/' element={<Login/>}/>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/forgetPassword' element={<ForgetPassword/>}/>
                 <Route path='/register' element={<Register/>}/>
-                <Route path='*' element={<Login/>}/>
+    
+                {/* <Route path='*' element={<PageNotFound/>}/> */}
             </Routes>
          );
     }
