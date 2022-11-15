@@ -18,7 +18,7 @@ const Admin = ({navigation}) => {
 
     const componentChange = (username) => {
         <Link to={`/productlists/${username}`}></Link>
-        navigate(`/productlists/${username}`, {replace:true})
+        navigate(`/productlists/${username}`)
     }
 
     const columns = [

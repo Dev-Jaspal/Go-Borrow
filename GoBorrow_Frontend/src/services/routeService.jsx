@@ -10,29 +10,33 @@ import Header from '../components/header/header';
 import Profile from '../components/profile/profile';
 import UserProducts from '../components/userProducts/userProducts';
 import ProductDetail from '../components/productDetail/productDetail';
-import Admin from '../components/admin/admin';
-import ProductLists from '../components/admin/productLists'
 import EditProducts from '../components/admin/editProducts';
+import Admin from '../components/admin/admin';
+import AuthService from './apiService';
+import ProductLists from '../components/admin/productLists';
 
-const RouteService = ({IsLoggedIn}) => {
-    if(IsLoggedIn)
+const RouteService = () => {
+
+    const {http, getUser} = AuthService();
+    if(getUser())
     {
         return ( 
             <>
             <Header/>
             <Routes>
                 <Route path='/productregister' element={<RegisterProduct/>}/>
+                <Route path='/productregister/:id' element={<RegisterProduct/>}/>
                 <Route path='/products' element={<Products/>}/>
                 <Route path='/productdetail/:id' element={<ProductDetail/>}/>
                 <Route path='/userproducts' element={<UserProducts/>}/>
                 <Route path='/profile' element={<Profile/>}/>
-                <Route path='/logout' element={<Logout/>}/>
+                {/* <Route path='/logout' element={<Logout/>}/> */}
                 <Route path='/admin' element={<Admin />}/>
                 <Route path='/editproducts/:userId/:userName' element={<EditProducts />}/>
-                <Route path='/productlists/:userName' element={<ProductLists />}/>
+                <Route path='/productlist/:userName' element={<ProductLists/>}/>
                 {/* <Route path='/profile/:Id' element={<Profile/>}/> */}
                 <Route path='/' element={<Products/>}/>
-                {/* <Route path='*' element={<PageNotFound/>}/> */}
+                <Route path='*' element={<Login/>}/>
             </Routes>
             </>
          );
@@ -40,17 +44,11 @@ const RouteService = ({IsLoggedIn}) => {
     else{
         return ( 
             <Routes>
-                {/* <Route path='/register' element={<Register/>}/>
-                <Route path='/profile' element={<Profile/>}/>
-                <Route path='/profile/:Id' element={<Profile/>}/>
-                <Route path='/home' element={<Home/>}/>
-                <Route path='/' element={<Home/>}/> */}
                 <Route path='/' element={<Login/>}/>
                 <Route path='/login' element={<Login/>}/>
                 <Route path='/forgetPassword' element={<ForgetPassword/>}/>
                 <Route path='/register' element={<Register/>}/>
-    
-                {/* <Route path='*' element={<PageNotFound/>}/> */}
+                <Route path='*' element={<Login/>}/>
             </Routes>
          );
     }

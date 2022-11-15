@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import loginImg from '../../assets/images/login.jpg'
 import { ProductValidation } from '../../utilities/validation';
 import './registerProduct.css';
 import AuthService from '../../services/apiService';
+import { useEffect } from 'react';
 
 const RegisterProduct = () => {
    const initialValue =  { 
@@ -17,11 +18,35 @@ const RegisterProduct = () => {
       productImage:""
   };
 
+
 const {http, user} = AuthService();
+const params = useParams();
+
+  useEffect(() => {
+    if(params.id)
+    {
+      http.get('/products?id='+params.id)
+      .then((res)=>{
+          console.log(res.data)
+          setFormValue(res.data)
+      })
+      .catch(err=>{console.log(err)})
+    }
+    else
+    {
+      setFormValue(initialValue)
+    }
+
+  }, [params.id])
+
+
 const [formValue, setFormValue] = useState(initialValue);
 const [formErrors, setFormErrors] = useState({});
 const [isSubmit, setIsSubmit] = useState(false);
 const navigate = useNavigate();
+
+
+
 
 const handleChange = event => {
     const {name, value} = event.target;
@@ -64,26 +89,55 @@ const handleImage = async (e) =>{
   
   if(Object.keys(formErrors).length === 0 && isSubmit) 
   {
-    http
-    .post('/products', 
-                            {  
-                              userId:user._id,
-                              email:user.email,
-                              productName:formValue.productName,
-                              productPrice:formValue.productPrice,
-                              productCategory:formValue.productCategory,
-                              productCondition:formValue.productCondition,
-                              productBoughtYear:formValue.productBoughtYear,
-                              productDescription: formValue.productDescription,  
-                              productlocation:formValue.productlocation,
-                              productImage:formValue.productImage,
-                              borrowedBy:""
-                            }
-    )
-    .then((res) => {
-          navigate('/');
+    if(params.id)
+    {
+      window.alert()
+      http.put('/products/'+`${params.id}`,{  
+        email:user.email,
+        productName:formValue.productName,
+        productPrice:formValue.productPrice,
+        productCategory:formValue.productCategory,
+        productCondition:formValue.productCondition,
+        productBoughtYear:formValue.productBoughtYear,
+        productDescription: formValue.productDescription,  
+        productlocation:formValue.productlocation,
+        productImage:formValue.productImage,
+        // borrowedBy:""
     })
-    .catch((err) => {console.log(err)})
+      .then((res) => {
+          if(res.data)
+          {
+              setFormValue(initialValue);
+              navigate('/userproducts');
+          }
+         
+      })
+      .catch((err) => {console.log(err)})
+    }
+    else
+    {
+      http
+      .post('/products', 
+                        {  
+                          userId:user._id,
+                          email:user.email,
+                          productName:formValue.productName,
+                          productPrice:formValue.productPrice,
+                          productCategory:formValue.productCategory,
+                          productCondition:formValue.productCondition,
+                          productBoughtYear:formValue.productBoughtYear,
+                          productDescription: formValue.productDescription,  
+                          productlocation:formValue.productlocation,
+                          productImage:formValue.productImage,
+                          borrowedBy:""
+                      }
+      )
+      .then((res) => {
+            navigate('/');
+      })
+      .catch((err) => {console.log(err)})
+    }
+    
   }
 
   return ( 
@@ -112,7 +166,7 @@ const handleImage = async (e) =>{
                       name="productPrice" 
                       value={formValue.productPrice}
                       onChange={handleChange}/>
-                      <span>{formErrors.productName}</span>
+                      <span>{formErrors.productPrice}</span>
                </div>
                <div className="form-group">
                   <select type='select' id='productCategory' 
@@ -182,7 +236,7 @@ const handleImage = async (e) =>{
                <div className="registerProd-buttons">
                   <input name="register" id="register" className="btn btn-inline-block btn-secondary mb-4" type="button" value="Cancel"
                    onClick={handleCancel}/>
-                  <input name="register" id="register" className="btn btn-inline-block btn-success mb-4 ml-2" type="button" value="Register Product"
+                  <input name="register" id="register" className="btn btn-inline-block btn-success mb-4 ml-2" type="button" value={params.id ? "Update Product" : "Register Product"}
                    onClick={handleSubmit}/>
                </div>
               </form>

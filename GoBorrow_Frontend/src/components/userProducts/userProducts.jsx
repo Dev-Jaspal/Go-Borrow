@@ -53,7 +53,7 @@ if(products === undefined){
                     product.userId === user._id &&
                          
                           <div className='card'>
-                            <Link key={index} className="text-decoration-none mt-4  " to={"/productdetail/"+`${product._id}`}>
+                            <Link key={index} className="text-decoration-none mt-4  " to={"/productregister/"+`${product._id}`}>
                             <img className="card-img-top" height={300} src={`${product.productImage}`} alt="product image...."/>
                             </Link>
                             <div className="card-body d-flex">
