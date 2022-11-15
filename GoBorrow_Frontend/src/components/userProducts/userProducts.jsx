@@ -1,13 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './userProducts.css';
 import AuthService from '../../services/apiService';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash,faLocationPin } from "@fortawesome/free-solid-svg-icons";
+
 
 const UserProducts = () => {
 
   const {http, user} = AuthService();
   const [products, setProducts] = useState();
+  const navigate = useNavigate();
 
+  const handleDelete = (product)=> {
+    console.log(product)
+    http.delete('/products/'+product._id)
+        .then((res)=>{
+          navigate('/')
+        })
+        .catch(err=> console.log(err))
+  }
   useEffect(()=>{
     http.get('/products')
     .then((res) => {
@@ -39,16 +51,22 @@ if(products === undefined){
             {
               products.map((product, index)=>
                     product.userId === user._id &&
-                          <Link key={index} className="card text-decoration-none mt-4  " to={"/productdetail/"+`${product._id}`}>
-                          <div>
-                            <img className="card-img-top" height={300} src={`${product.productImage}`} alt="Card image cap"/>
-                            <div className="card-body">
-                              <p className="card-text text-muted">{product.productName}</p>
-                              <p className="card-text mb-0 text-muted"><small className="text-muted">{product.productlocation}</small></p>
-                              <p className="card-text mb-3 text-muted"><small className="text-muted">Pay: ${product.productPrice} per day</small></p>
+                         
+                          <div className='card'>
+                            <Link key={index} className="text-decoration-none mt-4  " to={"/productdetail/"+`${product._id}`}>
+                            <img className="card-img-top" height={300} src={`${product.productImage}`} alt="product image...."/>
+                            </Link>
+                            <div className="card-body d-flex">
+                              <div className="flex-grow-1">
+                              <h3 className="card-text text-dark">{product.productName}</h3>
+                              <p className="card-text mb-2 text-muted"><small className="text-muted"> <FontAwesomeIcon icon={faLocationPin} className="primary mr-2"/>{product.productlocation}</small></p>
+                              <p className="card-text mb-3 text-muted"><small className="text-muted productdesc">{product.productDescription}</small></p>
+                              <p className="card-text mb-3 text-muted"><small className="text-dark"><strong>Pay: </strong>${product.productPrice} per day</small></p>
+                              </div>
+                              <FontAwesomeIcon onClick={() => handleDelete(product)} icon={faTrash} className="float-end fa-trash"/>
                             </div>
                           </div>
-                          </Link>
+                         
               )
             }
           </div>

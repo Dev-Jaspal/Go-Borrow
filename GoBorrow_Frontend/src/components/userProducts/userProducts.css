@@ -1,2 +1,11 @@
 .card-deck{flex-wrap:wrap}
 .card-deck .card{flex:0!important; flex-basis: calc(25% - 30px)!important}
+.fa-trash path{fill:#f00000!important}
+.productdesc{   overflow: hidden;
+    text-overflow: clip;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* number of lines to show */
+            line-clamp: 3; 
+    -webkit-box-orient: vertical;
+ 
+}

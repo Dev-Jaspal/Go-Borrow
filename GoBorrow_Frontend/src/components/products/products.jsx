@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import AuthService from '../../services/apiService';
 import { useState } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
 
 const Products = () => {
  
@@ -30,13 +32,16 @@ return (
             product.borrowedBy === "" &&
                   <Link key={index} className="card text-decoration-none mt-4  " to={"/productdetail/"+`${product._id}`}>
                   <div>
-                    <img className="card-img-top" height={300} src={`${product.productImage}`} alt="Card image cap"/>
-                    <div className="card-body">
-                      <p className="card-text text-muted">{product.productName}</p>
-                      <p className="card-text mb-0 text-muted"><small className="text-muted">{product.productlocation}</small></p>
-                      <p className="card-text mb-3 text-muted"><small className="text-muted">Pay: ${product.productPrice} per day</small></p>
-                    </div>
-                  </div>
+                            <img className="card-img-top" height={300} src={`${product.productImage}`} alt="Card image cap"/>
+                            <div className="card-body d-flex">
+                              <div className="flex-grow-1">
+                              <h3 className="card-text text-dark">{product.productName}</h3>
+                              <p className="card-text mb-2 text-muted"><small className="text-muted"> <FontAwesomeIcon icon={faLocationPin} className="primary mr-2"/>{product.productlocation}</small></p>
+                              <p className="card-text mb-3 text-muted"><small className="text-muted productdesc">{product.productDescription}</small></p>
+                              <p className="card-text mb-3 text-muted"><small className="text-dark"><strong>Pay: </strong>${product.productPrice} per day</small></p>
+                              </div>
+                            </div>
+                          </div>
                   </Link>
       )
     }
