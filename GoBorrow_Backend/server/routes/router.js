@@ -10,7 +10,6 @@ const productcontroller = require('../controller/productcontroller');
 //     res.json(jsonProducts);
 // })
 
-
 //User API 
 route.post('/users', usercontroller.create);
 route.get('/users', usercontroller.find);

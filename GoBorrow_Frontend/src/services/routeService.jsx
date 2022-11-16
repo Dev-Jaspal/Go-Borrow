@@ -29,11 +29,12 @@ const RouteService = () => {
                 <Route path='/products' element={<Products/>}/>
                 <Route path='/productdetail/:id' element={<ProductDetail/>}/>
                 <Route path='/userproducts' element={<UserProducts/>}/>
+                <Route path='/userproducts/:id' element={<UserProducts/>}/> {/* instead of editproducts */}
                 <Route path='/profile' element={<Profile/>}/>
                 {/* <Route path='/logout' element={<Logout/>}/> */}
                 <Route path='/admin' element={<Admin />}/>
-                <Route path='/editproducts/:userId/:userName' element={<EditProducts />}/>
-                <Route path='/productlist/:userName' element={<ProductLists/>}/>
+                {/* <Route path='/editproducts/:userId/:userName' element={<EditProducts />}/> */}
+                <Route path='/productlists/:userName' element={<ProductLists/>}/>
                 {/* <Route path='/profile/:Id' element={<Profile/>}/> */}
                 <Route path='/' element={<Products/>}/>
                 <Route path='*' element={<Login/>}/>

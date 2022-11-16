@@ -1,16 +1,48 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './userProducts.css';
 import AuthService from '../../services/apiService';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash,faLocationPin } from "@fortawesome/free-solid-svg-icons";
-
+import allProducts from '../../services/allProducts'
 
 const UserProducts = () => {
+  const initialValue =  { 
+    productName:"",
+    productPrice:"",
+    productCategory:"",
+    productCondition:"",
+    productBoughtYear:"",
+    productDescription: "",  
+    productlocation:"",
+    productImage:""
+};
+
 
   const {http, user} = AuthService();
   const [products, setProducts] = useState();
   const navigate = useNavigate();
+  const {userName} = useParams();
+  const params = useParams();
+  const [formValue, setFormValue] = useState(initialValue);
+
+  useEffect(() => {
+    if(params.id)
+    {
+      http.get('/products')
+      .then((res)=>{
+          console.log(res.data)
+          setFormValue(res.data)
+      })
+      .catch(err=>{console.log(err)})
+    }
+    else
+    {
+      setFormValue(initialValue)
+    }
+  
+  }, [params.id])
+
 
   const handleDelete = (product)=> {
     console.log(product)
@@ -33,6 +65,16 @@ if(products === undefined){
   return <div>Loading.....</div>
 }
 
+
+// const [products, setProducts] = useState(allProducts);
+// const navigate = useNavigate();
+
+
+const editHandler = (userId) => {
+  // <Link to={`/editproducts/${userId}/${userName}`}></Link>
+  navigate(`/editproducts/${userId}/${userName}`, {replace:true})
+}
+
     return ( 
       <div className='container-fluid position-relative'>
       <nav >
@@ -48,47 +90,72 @@ if(products === undefined){
         <div className="tab-content " id="nav-tabContent">
           <div className="tab-pane fade show active" id="nav-uploaded" role="tabpanel" aria-labelledby="nav-home-tab">
             <div className="card-deck p-3 mr-1 mt-2">
-            {
-              products.map((product, index)=>
-                    product.userId === user._id &&
-                         
-                          <div className='card'>
-                            <Link key={index} className="text-decoration-none mt-4  " to={"/productregister/"+`${product._id}`}>
-                            <img className="card-img-top" height={300} src={`${product.productImage}`} alt="product image...."/>
-                            </Link>
-                            <div className="card-body d-flex">
-                              <div className="flex-grow-1">
-                              <h3 className="card-text text-dark">{product.productName}</h3>
-                              <p className="card-text mb-2 text-muted"><small className="text-muted"> <FontAwesomeIcon icon={faLocationPin} className="primary mr-2"/>{product.productlocation}</small></p>
-                              <p className="card-text mb-3 text-muted"><small className="text-muted productdesc">{product.productDescription}</small></p>
-                              <p className="card-text mb-3 text-muted"><small className="text-dark"><strong>Pay: </strong>${product.productPrice} per day</small></p>
-                              </div>
-                              <FontAwesomeIcon onClick={() => handleDelete(product)} icon={faTrash} className="float-end fa-trash"/>
-                            </div>
-                          </div>
-                         
+            {params.id && (
+              products.filter((product, idx) => ((product.userId === params.id || product.borrowedBy === params.id) && product.borrowedBy.length > 1)).map((product, idx)=>
+              <div className="card text-decoration-none mt-4" onClick={()=>editHandler(product._id)}>
+                <img className="card-img-top" src={("https://a0.muscache.com/im/pictures/c96ca7bd-3f0b-4d65-99ae-5fbcf409868e.jpg?im_w=1200")} alt="Card image cap" />
+                <div className="card-body">
+                  <p className="card-text text-muted">{product.productName}</p>
+                  <p className="card-text mb-0 text-muted"><small className="text-muted">{product.productlocation}</small></p>
+                  <p className="card-text mb-3 text-muted"><small className="text-muted">Pay: ${product.productPrice} per day</small></p>
+                  <faTrash className='d-inline' />
+                </div>
+              </div>
               )
-            }
+            )}
+            {!params.id && (
+              products.map((product, index)=>
+                product.userId === user._id && 
+                  <div className='card'>
+                    <Link key={index} className="text-decoration-none mt-4  " to={"/productregister/"+`${product._id}`}>
+                    <img className="card-img-top" height={300} src={`${product.productImage}`} alt="product image...."/>
+                    </Link>
+                    <div className="card-body d-flex">
+                      <div className="flex-grow-1">
+                      <h3 className="card-text text-dark">{product.productName}</h3>
+                      <p className="card-text mb-2 text-muted"><small className="text-muted"> <FontAwesomeIcon icon={faLocationPin} className="primary mr-2"/>{product.productlocation}</small></p>
+                      <p className="card-text mb-3 text-muted"><small className="text-muted productdesc">{product.productDescription}</small></p>
+                      <p className="card-text mb-3 text-muted"><small className="text-dark"><strong>Pay: </strong>${product.productPrice} per day</small></p>
+                      </div>
+                      <FontAwesomeIcon onClick={() => handleDelete(product)} icon={faTrash} className="float-end fa-trash"/>
+                    </div>
+                  </div>
+              )
+            )}
           </div>
           </div>
 
           <div className="tab-pane fade" id="nav-borrowed" role="tabpanel" aria-labelledby="nav-borrowed-tab">
           <div className="card-deck p-3 mr-1 mt-2">
-          {
+            {params.id && (
+              products.filter((user, idx) => user._id === params.id && user.status === "Borrowed").map((product, idx)=>
+              <div className="card text-decoration-none mt-4" onClick={()=>editHandler(product._id)}>
+                <img className="card-img-top" src={("https://a0.muscache.com/im/pictures/c96ca7bd-3f0b-4d65-99ae-5fbcf409868e.jpg?im_w=1200")} alt="Card image cap" />
+                <div className="card-body">
+                  <p className="card-text text-muted">{product.productName}</p>
+                  <p className="card-text mb-0 text-muted"><small className="text-muted">{product.productlocation}</small></p>
+                  <p className="card-text mb-3 text-muted"><small className="text-muted">Pay: ${product.productPrice} per day</small></p>
+                  <faTrash className='d-inline' />
+                </div>
+              </div>
+            )
+          
+            )}
+          {!params.id && (
               products.map((product, index)=>
-                    product.borrowedBy === user._id &&
-                          <Link key={index} className="card text-decoration-none mt-4  " to={"/productdetail/"+`${product._id}`}>
-                          <div>
-                            <img className="card-img-top" height={300} src={`${product.productImage}`} alt="Card image cap"/>
-                            <div className="card-body">
-                              <p className="card-text text-muted">{product.productName}</p>
-                              <p className="card-text mb-0 text-muted"><small className="text-muted">{product.productlocation}</small></p>
-                              <p className="card-text mb-3 text-muted"><small className="text-muted">Pay: ${product.productPrice} per day</small></p>
-                            </div>
-                          </div>
-                          </Link>
+                product.borrowedBy === user._id &&
+                  <Link key={index} className="card text-decoration-none mt-4  " to={"/productdetail/"+`${product._id}`}>
+                  <div>
+                    <img className="card-img-top" height={300} src={`${product.productImage}`} alt="Card image cap"/>
+                    <div className="card-body">
+                      <p className="card-text text-muted">{product.productName}</p>
+                      <p className="card-text mb-0 text-muted"><small className="text-muted">{product.productlocation}</small></p>
+                      <p className="card-text mb-3 text-muted"><small className="text-muted">Pay: ${product.productPrice} per day</small></p>
+                    </div>
+                  </div>
+                  </Link>
               )
-            }
+            )}
           </div>
           </div>
         </div>

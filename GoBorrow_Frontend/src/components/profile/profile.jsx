@@ -15,7 +15,6 @@ const Profile = () => {
         confirmPassword: "",
     };
 
-  
     const [registerForm, setRegisterForm] = useState(initialValue);
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
