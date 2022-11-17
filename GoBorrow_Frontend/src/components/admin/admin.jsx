@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react'
 import {allUsers} from '../../services/allUsers'
 import DataTable from 'react-data-table-component'
 import { Link, useNavigate } from 'react-router-dom';
-import ProductDetail from '../productDetail/productDetail';
-import EditProduct from './editProducts';
 import {FaTrash} from 'react-icons/fa'
 import AuthService from '../../services/apiService';
 
@@ -27,22 +25,22 @@ const Admin = ({navigation}) => {
         return <div>Loading.....</div>
       }
 
-    const togglePopUp = () => {
-        setPopUP(!popUp);
-    }
-
     const viewHandler = (id) => {
         // <Link to={`/userproducts/${id}`}></Link>
         navigate(`/userproducts/${id}`)
     }
 
-    const userDelete = (id) => {
+    const handleDelete = (id) => {
         // eslint-disable-next-line no-restricted-globals
         if (confirm("Do you want to delete this user?")){
-            console.log("deleted");
+            http.delete('/users/'+id)
+            .then((res)=>{
+              setPopUP(!popUp);
+              navigate('/admin')
+            })
+            .catch(err=> console.log(err))
         }
     }
-
 
 
     // const columns = [
@@ -126,7 +124,7 @@ const Admin = ({navigation}) => {
                         <th>{idx+1}</th>
                         <th>{user.email}</th>
                         <th>{user.name}</th>
-                        <th><FaTrash /></th>
+                        <th><FaTrash onClick={() =>handleDelete(user._id)} className='fa-trash' /></th>
                         <th><button onClick={()=>viewHandler(user._id)}>View</button></th>
                     </tr>
                 )}

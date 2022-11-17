@@ -39,13 +39,10 @@ const params = useParams();
 
   }, [params.id])
 
-
 const [formValue, setFormValue] = useState(initialValue);
 const [formErrors, setFormErrors] = useState({});
 const [isSubmit, setIsSubmit] = useState(false);
 const navigate = useNavigate();
-
-
 
 
 const handleChange = event => {
@@ -84,14 +81,14 @@ const handleImage = async (e) =>{
   const handleCancel = (event) =>{
       event.preventDefault();
       setFormValue(initialValue)
-      navigate('/');
+      navigate(`/admin`);
   }
   
   if(Object.keys(formErrors).length === 0 && isSubmit) 
   {
     if(params.id)
     {
-      window.alert()
+      window.alert('Successfully updated!')
       http.put('/products/'+`${params.id}`,{  
         email:user.email,
         productName:formValue.productName,
@@ -108,7 +105,7 @@ const handleImage = async (e) =>{
           if(res.data)
           {
               setFormValue(initialValue);
-              navigate('/userproducts');
+              navigate(`/admin`);
           }
          
       })

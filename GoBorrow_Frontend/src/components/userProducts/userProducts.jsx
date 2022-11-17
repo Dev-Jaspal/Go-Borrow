@@ -18,7 +18,6 @@ const UserProducts = () => {
     productImage:""
 };
 
-
   const {http, user} = AuthService();
   const [products, setProducts] = useState();
   const navigate = useNavigate();
@@ -65,16 +64,6 @@ if(products === undefined){
   return <div>Loading.....</div>
 }
 
-
-// const [products, setProducts] = useState(allProducts);
-// const navigate = useNavigate();
-
-
-const editHandler = (userId) => {
-  // <Link to={`/editproducts/${userId}/${userName}`}></Link>
-  navigate(`/editproducts/${userId}/${userName}`, {replace:true})
-}
-
     return ( 
       <div className='container-fluid position-relative'>
       <nav >
@@ -91,23 +80,9 @@ const editHandler = (userId) => {
           <div className="tab-pane fade show active" id="nav-uploaded" role="tabpanel" aria-labelledby="nav-home-tab">
             <div className="card-deck p-3 mr-1 mt-2">
             {params.id && (
-              products.filter((product, idx) => ((product.userId === params.id || product.borrowedBy === params.id) && product.borrowedBy.length > 1)).map((product, idx)=>
-              <div className="card text-decoration-none mt-4" onClick={()=>editHandler(product._id)}>
-                <img className="card-img-top" src={("https://a0.muscache.com/im/pictures/c96ca7bd-3f0b-4d65-99ae-5fbcf409868e.jpg?im_w=1200")} alt="Card image cap" />
-                <div className="card-body">
-                  <p className="card-text text-muted">{product.productName}</p>
-                  <p className="card-text mb-0 text-muted"><small className="text-muted">{product.productlocation}</small></p>
-                  <p className="card-text mb-3 text-muted"><small className="text-muted">Pay: ${product.productPrice} per day</small></p>
-                  <faTrash className='d-inline' />
-                </div>
-              </div>
-              )
-            )}
-            {!params.id && (
-              products.map((product, index)=>
-                product.userId === user._id && 
+              products.filter((product, idx) => product.userId === params.id).map((product, idx)=>
                   <div className='card'>
-                    <Link key={index} className="text-decoration-none mt-4  " to={"/productregister/"+`${product._id}`}>
+                    <Link key={idx} className="text-decoration-none mt-4  " to={"/productregister/"+`${product._id}`}>
                     <img className="card-img-top" height={300} src={`${product.productImage}`} alt="product image...."/>
                     </Link>
                     <div className="card-body d-flex">
@@ -127,24 +102,9 @@ const editHandler = (userId) => {
 
           <div className="tab-pane fade" id="nav-borrowed" role="tabpanel" aria-labelledby="nav-borrowed-tab">
           <div className="card-deck p-3 mr-1 mt-2">
-            {params.id && (
-              products.filter((user, idx) => user._id === params.id && user.status === "Borrowed").map((product, idx)=>
-              <div className="card text-decoration-none mt-4" onClick={()=>editHandler(product._id)}>
-                <img className="card-img-top" src={("https://a0.muscache.com/im/pictures/c96ca7bd-3f0b-4d65-99ae-5fbcf409868e.jpg?im_w=1200")} alt="Card image cap" />
-                <div className="card-body">
-                  <p className="card-text text-muted">{product.productName}</p>
-                  <p className="card-text mb-0 text-muted"><small className="text-muted">{product.productlocation}</small></p>
-                  <p className="card-text mb-3 text-muted"><small className="text-muted">Pay: ${product.productPrice} per day</small></p>
-                  <faTrash className='d-inline' />
-                </div>
-              </div>
-            )
-          
-            )}
-          {!params.id && (
-              products.map((product, index)=>
-                product.borrowedBy === user._id &&
-                  <Link key={index} className="card text-decoration-none mt-4  " to={"/productdetail/"+`${product._id}`}>
+          {params.id && (
+              products.filter((product, idx) => product.borrowedBy === params.id).map((product, idx)=>
+                  <Link key={idx} className="card text-decoration-none mt-4  " to={"/productdetail/"+`${product._id}`}>
                   <div>
                     <img className="card-img-top" height={300} src={`${product.productImage}`} alt="Card image cap"/>
                     <div className="card-body">

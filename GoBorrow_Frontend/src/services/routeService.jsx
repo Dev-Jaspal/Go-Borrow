@@ -10,10 +10,8 @@ import Header from '../components/header/header';
 import Profile from '../components/profile/profile';
 import UserProducts from '../components/userProducts/userProducts';
 import ProductDetail from '../components/productDetail/productDetail';
-import EditProducts from '../components/admin/editProducts';
 import Admin from '../components/admin/admin';
 import AuthService from './apiService';
-import ProductLists from '../components/admin/productLists';
 
 const RouteService = () => {
 
@@ -33,8 +31,6 @@ const RouteService = () => {
                 <Route path='/profile' element={<Profile/>}/>
                 {/* <Route path='/logout' element={<Logout/>}/> */}
                 <Route path='/admin' element={<Admin />}/>
-                {/* <Route path='/editproducts/:userId/:userName' element={<EditProducts />}/> */}
-                <Route path='/productlists/:userName' element={<ProductLists/>}/>
                 {/* <Route path='/profile/:Id' element={<Profile/>}/> */}
                 <Route path='/' element={<Products/>}/>
                 <Route path='*' element={<Login/>}/>
