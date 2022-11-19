@@ -21,6 +21,7 @@ route.delete('/users/:id', usercontroller.delete);
 //Product API
 route.post('/products', productcontroller.create);
 route.get('/products', productcontroller.find);
+route.get('/products/:id', productcontroller.findProdsByUserId);
 route.put('/products/:id', productcontroller.update);
 route.delete('/products/:id', productcontroller.delete);
 

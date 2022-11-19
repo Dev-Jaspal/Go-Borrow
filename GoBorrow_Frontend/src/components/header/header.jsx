@@ -29,7 +29,9 @@ const Header = () => {
                     <Link className="nav-link" to="/userproducts">Your Products</Link>
                     </li>
                     <li className="nav-item">
-                    <Link className="nav-link" to="/admin">Registered User</Link>
+                    {
+                        getUser().role === 'Admin' && <Link className="nav-link" to="/admin">Registered User</Link>
+                    }
                     </li>
                 </ul>
                 

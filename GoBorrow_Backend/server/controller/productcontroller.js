@@ -29,7 +29,7 @@ exports.create = (req,res)=>{
     product
     .save(product)
     .then(data=>{
-        res.send({success:true,message:`User has been created.`,code:200})
+        res.send({success:true,message:`Product has been created.`,code:200})
     })
     .catch(err => {
         res.status(500).send({
@@ -82,6 +82,21 @@ exports.find = (req,res) =>{
     else
     {
         Products.find()
+        .then(prod => {
+            res.send(prod)
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:err.message || "some error occurred while retrieving the product inforation."
+            });
+        })
+    }
+}
+
+// Retrieve and return all products by user id
+exports.findProdsByUserId = (req,res) =>{
+    const id = req.params.id;
+    Products.find({ $or : [{userId: id}, { borrowedBy: id}] })
         .then(user => {
             res.send(user)
         })
@@ -89,10 +104,8 @@ exports.find = (req,res) =>{
             res.status(500).send({
                 message:err.message || "some error occurred while retrieving the user inforation."
             });
-        })
-    }
+    })
 }
-
 
 //Update the  product by id
 exports.update = (req,res) =>{

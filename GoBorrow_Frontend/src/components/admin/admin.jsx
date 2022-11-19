@@ -1,30 +1,70 @@
 import React, { Component } from 'react'
-import { useState } from 'react'
-import {allUsers} from '../../services/allUsers'
+import { useState, useEffect } from 'react'
 import DataTable from 'react-data-table-component'
 import { Link, useNavigate } from 'react-router-dom';
-import ProductDetail from '../productDetail/productDetail';
-import EditProduct from './editProducts';
-
+import AuthService from '../../services/apiService';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faBars } from "@fortawesome/free-solid-svg-icons";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 const Admin = ({navigation}) => {
-    const [data, setData] = useState(allUsers);
-    const [popUp, setPopUP] = useState(false);
+
     const navigate = useNavigate();
+    const [alert, setAlert] = useState(null);
+    const {http, user} = AuthService();
+    const [users, setUsers] = useState();
 
-    const togglePopUp = () => {
-        setPopUP(!popUp);
+    const hideAlert = () => {
+        setAlert(null);
+      };
+
+    const getUsers = () =>{
+    http.get('/users')
+      .then((res) => {
+        var usersData = res.data.filter(x => x.role !== 'Admin')
+        setUsers(usersData);
+      })
+      .catch((err) => {console.log(err)})
+    }
+    useEffect(()=>{
+        getUsers();
+    }, []);
+
+    const handleDelete = (row) => {
+        setAlert(
+            <SweetAlert
+            warning
+            style={{ display: "block", margin: "0" }}
+            title="Are you sure!!"
+            onConfirm={() => deleteUser(row)}
+            onCancel={() => hideAlert()}
+            showCancel
+            confirmBtnText="Yes, delete it!"
+            confirmBtnBsStyle="danger"
+            cancelBtnBsStyle="light"
+            btnSize=""
+            focusCancelBtn
+            >
+             Do you want to delete {row.name} </SweetAlert>
+        )
     }
 
-    const componentChange = (username) => {
-        <Link to={`/productlists/${username}`}></Link>
-        navigate(`/productlists/${username}`)
+    const deleteUser = (row) =>{
+        http.delete('/users/'+row._id)
+        .then((res)=>{
+          hideAlert()
+          getUsers();
+        })
+        .catch(err=> console.log(err))
     }
 
+    const handleDetails = (row) =>{
+       navigate('/userproducts/'+row._id)
+    }
     const columns = [
         {
             name: "Id",
-            selector: "id",
+            selector: "_id",
             sortable: true
         },
         {
@@ -34,40 +74,41 @@ const Admin = ({navigation}) => {
         },
         {
             name: "Username",
-            selector: "username",
+            selector: "name",
             sortable: true,
-            right: true
+            right: false
         },
         {
-            name: "Password",
-            selector: "password",
+            name: "Role",
+            selector: "role",
             sortable: true,
-            right: true
+            right: false
         },
         {
-            name: "See All Products",
+            name: "Action(s)",
             button: true,
             cell: (row) => (
-                <button
-                    className="btn btn-outline btn-xs"
-                    onClick={()=>componentChange(row.username)}> View
-                </button>
+                <>
+                <FontAwesomeIcon  onClick={()=>handleDetails(row)} icon={faBars}  style={{marginRight:'10px'}}/>
+                <FontAwesomeIcon onClick={()=>handleDelete(row)} icon={faTrash} className="float-end fa-trash"/>
+                </>
+              
             )
         }
     ]
 
     return ( <div className="p-5">
-
+       
         <div className='users'>
             <DataTable 
                 title="Users"
                 columns={columns}
-                data={data}
+                data={users}
                 defaultSortField="title"
                 pagination
             />
         </div>
-
+        {alert}
     </div> );
 }
  

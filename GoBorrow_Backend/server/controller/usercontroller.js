@@ -1,4 +1,5 @@
 var Users = require('../model/usermodel');
+var Products = require('../model/productmodel');
 
 //Create and save new user
 exports.create = (req,res)=>{
@@ -144,7 +145,16 @@ exports.delete = (req,res) =>{
                 res.status(404).send({message:`Cannot delete with the id ${id}. Maybe id is wrong.`})
             }
             else{
-                res.send({message:"User is deleted successfully!"})
+                Products.deleteMany({userId: id})
+                .then(prod =>{
+                    if(!prod){
+                        res.status(404).send({message:`Cannot delete products with the user id ${id}. Maybe id is wrong.`})
+                    }
+                    else{
+                        res.send({message:"User and related products is deleted successfully!"})
+                    }
+                })
+                
             }
         })
         .catch(err=>{

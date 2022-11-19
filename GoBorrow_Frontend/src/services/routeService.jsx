@@ -2,7 +2,6 @@ import React , {useState} from 'react';
 import {Routes,Route, Navigate} from 'react-router-dom'
 import ForgetPassword from '../components/forgetPassword/forgetPassword';
 import Login from '../components/login/login';
-import Logout from '../components/logout/logout';
 import Products from '../components/products/products';
 import Register from '../components/register/register';
 import RegisterProduct from '../components/registerProduct/registerProduct';
@@ -10,10 +9,8 @@ import Header from '../components/header/header';
 import Profile from '../components/profile/profile';
 import UserProducts from '../components/userProducts/userProducts';
 import ProductDetail from '../components/productDetail/productDetail';
-import EditProducts from '../components/admin/editProducts';
 import Admin from '../components/admin/admin';
 import AuthService from './apiService';
-import ProductLists from '../components/admin/productLists';
 
 const RouteService = () => {
 
@@ -29,12 +26,11 @@ const RouteService = () => {
                 <Route path='/products' element={<Products/>}/>
                 <Route path='/productdetail/:id' element={<ProductDetail/>}/>
                 <Route path='/userproducts' element={<UserProducts/>}/>
+                <Route path='/userproducts/:id' element={<UserProducts/>}/>
                 <Route path='/profile' element={<Profile/>}/>
-                {/* <Route path='/logout' element={<Logout/>}/> */}
-                <Route path='/admin' element={<Admin />}/>
-                <Route path='/editproducts/:userId/:userName' element={<EditProducts />}/>
-                <Route path='/productlist/:userName' element={<ProductLists/>}/>
-                {/* <Route path='/profile/:Id' element={<Profile/>}/> */}
+                {
+                    getUser().role === 'Admin' &&  <Route path='/admin' element={<Admin />}/>
+                }
                 <Route path='/' element={<Products/>}/>
                 <Route path='*' element={<Login/>}/>
             </Routes>

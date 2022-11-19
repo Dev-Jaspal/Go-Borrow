@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import './userProducts.css';
 import AuthService from '../../services/apiService';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash,faLocationPin } from "@fortawesome/free-solid-svg-icons";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 
 const UserProducts = () => {
@@ -11,23 +12,65 @@ const UserProducts = () => {
   const {http, user} = AuthService();
   const [products, setProducts] = useState();
   const navigate = useNavigate();
+  const params = useParams();
+  const [alert, setAlert] = useState(null);
+
+  const hideAlert = () => {
+      setAlert(null);
+    };
+
 
   const handleDelete = (product)=> {
     console.log(product)
-    http.delete('/products/'+product._id)
-        .then((res)=>{
-          navigate('/')
-        })
-        .catch(err=> console.log(err))
+    setAlert(
+      <SweetAlert
+      warning
+      style={{ display: "block", margin: "0" }}
+      title="Are you sure!!"
+      onConfirm={() => deleteProduct(product)}
+      onCancel={() => hideAlert()}
+      showCancel
+      confirmBtnText="Yes, delete it!"
+      confirmBtnBsStyle="danger"
+      cancelBtnBsStyle="light"
+      btnSize=""
+      focusCancelBtn
+      >
+       Do you want to delete {product.productName} </SweetAlert>
+  )
+    
   }
-  useEffect(()=>{
-    http.get('/products')
-    .then((res) => {
-      console.log(res.data)
-      setProducts(res.data);
+
+  const deleteProduct = (product) =>{
+    http.delete('/products/'+product._id)
+    .then((res)=>{
+      navigate('/')
     })
-    .catch((err) => {console.log(err)})
-  }, []);
+    .catch(err=> console.log(err))
+  }
+
+  useEffect(()=>{
+    if(params.id)
+    {
+      console.log(params.id)
+      http.get('/products/' + params.id)
+      .then((res) => {
+        console.log(res.data)
+        setProducts(res.data);
+      })
+      .catch((err) => {console.log(err)})
+    }
+    else
+    {
+      http.get('/products')
+      .then((res) => {
+        console.log(res.data)
+  
+        setProducts(res.data);
+      })
+      .catch((err) => {console.log(err)})
+    }
+  }, [params.id]);
 
 if(products === undefined){
   return <div>Loading.....</div>
@@ -45,13 +88,14 @@ if(products === undefined){
             aria-controls="nav-borrowed" aria-selected="false">Borrowed</a>
         </div>
       </nav>
+       {alert}
         <div className="tab-content " id="nav-tabContent">
           <div className="tab-pane fade show active" id="nav-uploaded" role="tabpanel" aria-labelledby="nav-home-tab">
             <div className="card-deck p-3 mr-1 mt-2">
             {
               products.map((product, index)=>
-                    product.userId === user._id &&
-                         
+                    (product.userId === user._id || product.userId === params.id)
+                         &&
                           <div className='card'>
                             <Link key={index} className="text-decoration-none mt-4  " to={"/productregister/"+`${product._id}`}>
                             <img className="card-img-top" height={300} src={`${product.productImage}`} alt="product image...."/>
@@ -76,7 +120,8 @@ if(products === undefined){
           <div className="card-deck p-3 mr-1 mt-2">
           {
               products.map((product, index)=>
-                    product.borrowedBy === user._id &&
+                    (product.borrowedBy === user._id || product.borrowedBy === params.id)
+                     &&
                           <Link key={index} className="card text-decoration-none mt-4  " to={"/productdetail/"+`${product._id}`}>
                           <div>
                             <img className="card-img-top" height={300} src={`${product.productImage}`} alt="Card image cap"/>

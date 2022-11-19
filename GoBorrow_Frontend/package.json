@@ -27,7 +27,8 @@
     "react-scripts": "^5.0.1",
     "reactstrap": "^9.1.4",
     "route-params": "^0.2.0",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "react-bootstrap-sweetalert": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
