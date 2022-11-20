@@ -3,8 +3,8 @@ import { useNavigate} from 'react-router-dom';
 import { ForgetPasswordValidation } from '../../utilities/validation';
 import loginImg from '../../assets/images/login.jpg'
 import './forgetPassword.css';
-import AuthService
- from '../../services/apiService';
+import AuthService from '../../services/apiService';
+
 const ForgetPassword = () => {
     const initialForgetPwdValue = {
         email:"",

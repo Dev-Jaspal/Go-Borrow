@@ -1,6 +1,5 @@
-import React from 'react';
-import { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import loginImg from '../../assets/images/login.jpg'
 import AuthService from '../../services/apiService';
 import { LoginValidation } from '../../utilities/validation';
@@ -19,8 +18,6 @@ const Login = () => {
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
     
-    const navigate = useNavigate();
-
     const handleChange = (event) =>{
         event.preventDefault();
         const {name, value} = event.target;

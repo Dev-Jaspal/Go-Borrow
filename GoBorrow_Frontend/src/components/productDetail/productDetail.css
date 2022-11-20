@@ -38,7 +38,3 @@ main {font-family: "Karla", sans-serif; background-color: #d0d0ce; min-height: 1
 .prodDetail-buttons{display: inline-block;width:100%;}
 .prodDetail-form textarea{line-height: 1!important;}
 .prodDetail-form .textarea-frm{flex-basis:100%}
-/* .prodDetail-form img {border: 1px solid #ddd; border-radius: 4px; padding: 5px; width: auto; height: 100px;}
-.prodDetail-form img:hover { box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);} */
-/* .uploadBox{border: 1px solid #d5dae2; padding: 5px; display:flex ;  align-items: center; flex-basis: 100%!important;}
-.uploadBox input{flex-grow:1} */

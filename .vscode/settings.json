@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/f528611f-e2e8-40ff-a1b9-c7cbf2b0b1d9/AppServices/subscriptions/f528611f-e2e8-40ff-a1b9-c7cbf2b0b1d9/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/GoBorrowUI",
+    "appService.deploySubpath": "GoBorrow_Frontend"
+}

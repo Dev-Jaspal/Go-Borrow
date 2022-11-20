@@ -27,7 +27,6 @@ const params = useParams();
     {
       http.get('/products?id='+params.id)
       .then((res)=>{
-          console.log(res.data)
           setFormValue(res.data)
       })
       .catch(err=>{console.log(err)})
@@ -51,7 +50,6 @@ const navigate = useNavigate();
 const handleChange = event => {
     const {name, value} = event.target;
     setFormValue({...formValue, [name]: value});
-    console.log(formValue)
    
 };
 
@@ -78,7 +76,6 @@ const handleImage = async (e) =>{
    const file = e.target.files[0];
    const base64 = await convertToBase64(file);
    setFormValue({...formValue, productImage: base64});
-   console.log(formValue);
 }
 
   const handleCancel = (event) =>{
@@ -91,7 +88,6 @@ const handleImage = async (e) =>{
   {
     if(params.id)
     {
-      window.alert()
       http.put('/products/'+`${params.id}`,{  
         email:user.email,
         productName:formValue.productName,
@@ -145,9 +141,6 @@ const handleImage = async (e) =>{
       <div className="container mt-4">
       <div className="registerProd-card mt-5">
           <div className="row no-gutters">
-          {/* <div className="col-md-5">
-              <img src={loginImg} alt="registerProd" className="registerProd-card-img"/>
-          </div> */}
           <div className="col-md-12 ">
               <div className="card-body ">
               <p className="registerProd-card-description">Add Product</p>

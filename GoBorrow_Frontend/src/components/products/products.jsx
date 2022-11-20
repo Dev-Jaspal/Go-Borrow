@@ -1,9 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import './products.css';
 import { Link } from 'react-router-dom';
-import { useEffect } from 'react';
 import AuthService from '../../services/apiService';
-import { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLocationPin } from "@fortawesome/free-solid-svg-icons";
 
@@ -16,7 +14,6 @@ const Products = () => {
   useEffect(()=>{
     http.get('/products')
     .then((res) => {
-      console.log(res.data)
       setProducts(res.data);
     })
     .catch((err) => {console.log(err)})

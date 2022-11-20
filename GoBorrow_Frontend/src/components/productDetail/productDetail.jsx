@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './productDetail.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import AuthService from '../../services/apiService';
-import { useEffect } from 'react';
-import { useState } from 'react';
+
 const ProductDetail = () => {
 
 const navigate = useNavigate();
@@ -32,7 +31,6 @@ const handleSubmit = (event) =>{
             {
                 console.log(res.data)
                 navigate('/');
-                //Initiate Email to owner and borrower
             }
      })
 }

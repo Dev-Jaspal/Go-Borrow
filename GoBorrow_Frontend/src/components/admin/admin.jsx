@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
 import { useState, useEffect } from 'react'
 import DataTable from 'react-data-table-component'
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import AuthService from '../../services/apiService';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash, faBars } from "@fortawesome/free-solid-svg-icons";
 import SweetAlert from "react-bootstrap-sweetalert";
 
-const Admin = ({navigation}) => {
+const Admin = () => {
 
     const navigate = useNavigate();
     const [alert, setAlert] = useState(null);
-    const {http, user} = AuthService();
+    const {http} = AuthService();
     const [users, setUsers] = useState();
 
     const hideAlert = () => {

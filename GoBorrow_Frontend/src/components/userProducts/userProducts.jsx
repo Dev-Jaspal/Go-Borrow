@@ -21,7 +21,6 @@ const UserProducts = () => {
 
 
   const handleDelete = (product)=> {
-    console.log(product)
     setAlert(
       <SweetAlert
       warning
@@ -52,7 +51,6 @@ const UserProducts = () => {
   useEffect(()=>{
     if(params.id)
     {
-      console.log(params.id)
       http.get('/products/' + params.id)
       .then((res) => {
         console.log(res.data)
@@ -64,8 +62,6 @@ const UserProducts = () => {
     {
       http.get('/products')
       .then((res) => {
-        console.log(res.data)
-  
         setProducts(res.data);
       })
       .catch((err) => {console.log(err)})
