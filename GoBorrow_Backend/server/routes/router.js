@@ -4,13 +4,6 @@ const route = express.Router();
 const usercontroller = require('../controller/usercontroller');
 const productcontroller = require('../controller/productcontroller');
 
-// var jsonProducts = require('../../allProducts.json');
-
-// route.get('/products', (req,res) =>{
-//     res.json(jsonProducts);
-// })
-
-
 //User API 
 route.post('/users', usercontroller.create);
 route.get('/users', usercontroller.find);
