@@ -13,7 +13,6 @@ const [prodDetail, setProdDetails] = useState({});
 useEffect(()=>{
     http.get('/products?id='+params.id)
     .then((res)=>{
-        console.log(res.data)
         setProdDetails(res.data)
     })
     .catch(err=>{console.log(err)})
@@ -29,62 +28,61 @@ const handleSubmit = (event) =>{
      .then((res) =>{
             if(res.data)
             {
-                console.log(res.data)
                 navigate('/');
             }
      })
 }
     return ( 
         <main className="d-flex align-items-center min-vh-100 py-3 py-md-0">
-        <div className="container">
-        <div className="prodDetail-card">
-            <div className="row no-gutters">
-            <div className="col-md-5">
-                <img src={`${prodDetail.productImage}`} alt="prodDetail" className="prodDetail-card-img"/>
+        <div className="container mt-5">
+        <div className="prodDetail-card mt-3 p-3">
+        <h3 className="p-2 mb-4"><strong>{prodDetail.productName}</strong></h3>
+            <div className="d-flex">
+            <div className="col-md-4 p-0 ">
+                <img src={`${prodDetail.productImage}`} alt="prodDetail" className="prodDetail-card-img border p-5"/>
             </div>
-            <div className="col-md-7">
-                <div className="card-body">
-                <p className="prodDetail-card-description">Product Detail</p>
-                <form>
-                <div className="form-group">
-                    <label htmlFor="name" >Product Owner: {prodDetail.ownerName}</label>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="name" >Contact: {prodDetail.ownerEmail}</label>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="name" >Product Name: {prodDetail.productName}</label>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="name" >Product Price: ${prodDetail.productPrice}</label>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="name" >Product Condition: {prodDetail.productCondition}</label>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="name" >Product Category: {prodDetail.productCategory}</label>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="name" >Product Bought Year: {prodDetail.productBoughtYear}</label>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="name" >Product Location: {prodDetail.productlocation}</label>
-                </div>
-                <div className="form-group">
-                    <label htmlFor="name" >Product Description: {prodDetail.productDescription}</label>
-                </div>
-                {
-                   ( user._id !== prodDetail.userId && prodDetail.borrowedBy !== user._id) &&  <>
-                    <input name="register" id="register" className="btn btn-inline-block btn-secondary mb-4" type="button" value="Cancel"
-                    onClick={handleCancel}/>
-                     <input name="register" id="register" className="btn btn-inline-block btn-success mb-4 ml-2" type="button" value="Borrow"
-                    onClick={handleSubmit}/>
-                    </>
-                }
-                </form>
+            <div className="col-md-8">
+                <div className="px-3 pt-0">
+                    <form className='mt-3'>
+                        <div className="mb-1">
+                            <label ><strong>Product Owner:</strong> {prodDetail.ownerName}</label>
+                        </div>
+                        <div className="mb-1">
+                            <label><strong>Contact:</strong> {prodDetail.ownerEmail}</label>
+                        </div>
+                        <div className="mb-1">
+                            <label><strong>Product Price:</strong> ${prodDetail.productPrice}</label>
+                        </div>
+                        <div className="mb-1">
+                            <label><strong>Product Condition: </strong>{prodDetail.productCondition}</label>
+                        </div>
+                        <div className="mb-1">
+                            <label><strong>Product Category: </strong>{prodDetail.productCategory}</label>
+                        </div>
+                        <div className="mb-1">
+                            <label><strong>Product Bought Year:</strong> {prodDetail.productBoughtYear}</label>
+                        </div>
+                        <div className="mb-1">
+                            <label><strong>Product Location:</strong>{prodDetail.productlocation}</label>
+                        </div>
+                    </form>
                 </div>
             </div>
+            
             </div>
+            <div className="mt-2">
+                    <p>{prodDetail.productDescription}</p>
+            </div>
+            {
+                   ( user._id !== prodDetail.userId && prodDetail.borrowedBy !== user._id) 
+                   && 
+                    <div className="mt-2 float-right mr-4">
+                        <input name="register" id="register" className="btn btn-inline-block btn-secondary mb-4" type="button" value="Cancel"
+                        onClick={handleCancel}/>
+                        <input name="register" id="register" className="btn btn-inline-block btn-success mb-4 ml-2" type="button" value="Borrow"
+                        onClick={handleSubmit}/>
+                    </div>
+            }
         </div>
         </div>
     </main>
