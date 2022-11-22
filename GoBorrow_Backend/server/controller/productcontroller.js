@@ -117,8 +117,6 @@ exports.update = (req,res) =>{
     }
 
     const id = req.params.id;
-    console.log(id)
-    console.log(req.body)
     Products.findByIdAndUpdate(id, req.body,{useFindAndModify:false})
         .then(data=>{
             if(!data)

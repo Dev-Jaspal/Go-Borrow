@@ -24,7 +24,7 @@ const AuthService = () => {
     };
 
     const http = axios.create({
-        baseURL:"http://localhost:5000/api",
+        baseURL: "https://goborrowserver.azurewebsites.net/api",  //"http://localhost:5000/api",
         headers:{
             // "Content-Type": "application/json",
             'Access-Control-Allow-Origin' : '*',

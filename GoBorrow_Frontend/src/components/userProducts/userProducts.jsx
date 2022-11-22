@@ -92,9 +92,9 @@ if(products === undefined){
               products.map((product, index)=>
                     (product.userId === user._id || product.userId === params.id)
                          &&
-                          <div className='card'>
-                            <Link key={index} className="text-decoration-none mt-4  " to={"/productregister/"+`${product._id}`}>
-                            <img className="card-img-top" height={300} src={`${product.productImage}`} alt="product image...."/>
+                          <div className='card mt-4'>
+                            <Link key={index} className="text-decoration-none " to={"/productregister/"+`${product._id}`}>
+                            <img className="card-img-top p-3" height={300} src={`${product.productImage}`} alt="product image...."/>
                             </Link>
                             <div className="card-body d-flex">
                               <div className="flex-grow-1">
@@ -118,9 +118,9 @@ if(products === undefined){
               products.map((product, index)=>
                     (product.borrowedBy === user._id || product.borrowedBy === params.id)
                      &&
-                          <Link key={index} className="card text-decoration-none mt-4  " to={"/productdetail/"+`${product._id}`}>
+                          <Link key={index} className="card text-decoration-none mt-4" to={"/productdetail/"+`${product._id}`}>
                           <div>
-                            <img className="card-img-top" height={300} src={`${product.productImage}`} alt="Card image cap"/>
+                            <img className="card-img-top p-3" height={300} src={`${product.productImage}`} alt="Card image cap"/>
                             <div className="card-body">
                               <p className="card-text text-muted">{product.productName}</p>
                               <p className="card-text mb-0 text-muted"><small className="text-muted">{product.productlocation}</small></p>

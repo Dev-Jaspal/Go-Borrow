@@ -82,7 +82,6 @@ exports.login = (req,res) =>{
     if(req.body)
     {
         const {email, password} = req.body;
-        console.log(req.body);
         Users.findOne({email:email, password:password})
             .then(data => {
                 if(!data){
@@ -90,7 +89,6 @@ exports.login = (req,res) =>{
                 }
                 else
                 {
-                    console.log(data)
                     res.send({_id:data._id, name:data.name, email:data.email, role:data.role})
                 }
             })
@@ -118,7 +116,7 @@ exports.update = (req,res) =>{
     }
 
     const id = req.params.id;
-    Users.findOneAndUpdate(id, req.body, {returnOriginal: false})
+    Users.findByIdAndUpdate(id, req.body, {returnOriginal: false})
         .then(data=>{
             if(!data)
             {

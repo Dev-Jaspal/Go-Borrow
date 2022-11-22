@@ -100,7 +100,7 @@ const Register = () => {
                         onChange={handleChange}/>
                          <span>{formErrors.confirmPassword}</span>
                     </div>
-                    <input name="register" id="register" className="btn btn-inline-block btn-secondary mb-4" type="button" value="Cancel"
+                    <input name="register" id="cancel" className="btn btn-inline-block btn-secondary mb-4" type="button" value="Cancel"
                      onClick={handleCancel}/>
                     <input name="register" id="register" className="btn btn-inline-block btn-success mb-4 ml-2" type="button" value="Register"
                      onClick={handleSubmit}/>

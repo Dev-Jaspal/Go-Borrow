@@ -29,7 +29,7 @@ return (
             product.borrowedBy === "" &&
                   <Link key={index} className="card text-decoration-none mt-4  " to={"/productdetail/"+`${product._id}`}>
                   <div>
-                            <img className="card-img-top" height={300} src={`${product.productImage}`} alt="Card image cap"/>
+                            <img className="card-img-top p-3" height={300} src={`${product.productImage}`} alt="Card image cap"/>
                             <div className="card-body d-flex">
                               <div className="flex-grow-1">
                               <h3 className="card-text text-dark">{product.productName}</h3>
