@@ -17,7 +17,8 @@ const Login = () => {
     const [loginForm, setLoginForm] = useState(initialValue);
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
-    
+    const [isExistErr, setIsExistErr] = useState("");
+
     const handleChange = (event) =>{
         event.preventDefault();
         const {name, value} = event.target;
@@ -36,7 +37,10 @@ const Login = () => {
         .then((res) => {
             storeUser(res.data);
         })
-        .catch((err) => {console.log(err)})
+        .catch((err) => {
+            console.log(err.response.data)
+            setIsExistErr(err.response.data.message);
+        })
     }
 
     return ( 
@@ -51,6 +55,7 @@ const Login = () => {
                     <div className="col-md-7">
                         <div className="card-body">
                         <p className="login-card-description">Sign into your account</p>
+                        
                         <form>
                             <div className="form-group">
                                 <label htmlFor="email" className="sr-only">Email</label>
@@ -59,6 +64,7 @@ const Login = () => {
                                 value={loginForm.email}
                                 onChange={handleChange}/>
                                 <span>{formErrors.email}</span>
+                                {isExistErr && <span className='text-danger p-1 m-0'>{isExistErr}</span>}
                             </div>
                             <div className="form-group mb-4">
                                 <label htmlFor="password" className="sr-only">Password</label>
