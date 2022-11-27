@@ -168,7 +168,7 @@ const handleImage = async (e) =>{
                      value={formValue.productCategory}
                      onChange={handleChange}>
                            <option>Select Category</option>
-                           <option value='Technology & Electronics'>Technology & Electronics</option>
+                           <option value='Technology and Electronics'>Technology and Electronics</option>
                            <option value='Home'>Home</option>
                            <option value='Garden'>Garden</option>
                            <option value='Hardware'>Hardware</option>

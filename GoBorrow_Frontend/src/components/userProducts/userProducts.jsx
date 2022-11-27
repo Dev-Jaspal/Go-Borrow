@@ -53,7 +53,6 @@ const UserProducts = () => {
     {
       http.get('/products/' + params.id)
       .then((res) => {
-        console.log(res.data)
         setProducts(res.data);
       })
       .catch((err) => {console.log(err)})

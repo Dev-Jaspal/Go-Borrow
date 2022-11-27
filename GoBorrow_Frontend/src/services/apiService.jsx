@@ -24,18 +24,25 @@ const AuthService = () => {
     };
 
     const http = axios.create({
-        baseURL: "https://goborrowserver.azurewebsites.net/api",  //"http://localhost:5000/api",
+        baseURL:   "http://localhost:5000/api", //"https://goborrowserver.azurewebsites.net/api"
         headers:{
             // "Content-Type": "application/json",
             'Access-Control-Allow-Origin' : '*',
         }
     });
+
+    const translate = axios.create(
+        {
+            baseURL:"https://libretranslate.de/",   
+        }
+    )
     return{
         storeUser,
         getUser,
         user,
         logout,
-        http
+        http,
+        translate
     }
 }
  

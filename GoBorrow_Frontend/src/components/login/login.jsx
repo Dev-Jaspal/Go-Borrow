@@ -38,7 +38,6 @@ const Login = () => {
             storeUser(res.data);
         })
         .catch((err) => {
-            console.log(err.response.data)
             setIsExistErr(err.response.data.message);
         })
     }
