@@ -174,10 +174,10 @@ const handleSubmit = (event) =>{
                             <label><strong>Product Price:</strong> ${prodDetail.productPrice}</label>
                         </div>
                         <div className="mb-1">
-                            <label><strong>Product Condition: </strong>{ productCategory === '' ? prodDetail.productCondition : productCategory}</label>
+                            <label><strong>Product Condition: </strong>{ productCategory === '' ? prodDetail.productCondition : productCondition}</label>
                         </div>
                         <div className="mb-1">
-                            <label><strong>Product Category: </strong>{ productCondition === '' ?  prodDetail.productCategory : productCondition}</label>
+                            <label><strong>Product Category: </strong>{ productCondition === '' ?  prodDetail.productCategory : productCategory}</label>
                         </div>
                         <div className="mb-1">
                             <label><strong>Product Bought Year:</strong> {prodDetail.productBoughtYear}</label>

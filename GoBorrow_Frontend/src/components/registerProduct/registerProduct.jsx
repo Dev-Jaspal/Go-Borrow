@@ -178,6 +178,16 @@ const handleImage = async (e) =>{
                   <span>{formErrors.productCategory}</span>
                </div>
                <div className="form-group ml-4">
+                      <label htmlFor="productBoughtYear" className="sr-only">Product Bought Year</label>
+                      <input type='date' id='productBoughtYear' 
+                      name='productBoughtYear' 
+                      className="form-control"
+                      placeholder='Bought Year...'
+                    value={formValue.productBoughtYear}
+                    onChange={handleChange}/>
+                    <span>{formErrors.productBoughtYear}</span>
+               </div>
+               <div className="form-group">
                   <select type='select' id='productCondition' 
                   name='productCondition' 
                   className="form-control"
@@ -192,16 +202,7 @@ const handleImage = async (e) =>{
                   </select>
                   <span>{formErrors.productCondition}</span>
                </div>
-               <div className="form-group">
-                      <label htmlFor="productBoughtYear" className="sr-only">Product Bought Year</label>
-                      <input type='date' id='productBoughtYear' 
-                      name='productBoughtYear' 
-                      className="form-control"
-                      placeholder='Bought Year...'
-                    value={formValue.productBoughtYear}
-                    onChange={handleChange}/>
-                    <span>{formErrors.productBoughtYear}</span>
-               </div>
+               
                <div className="form-group ml-4">
                       <label htmlFor="productlocation" className="sr-only">Product Location</label>
                       <input type="text" id='productlocation' name='productlocation' 
