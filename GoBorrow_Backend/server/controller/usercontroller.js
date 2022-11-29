@@ -115,7 +115,7 @@ exports.update = (req,res) =>{
             .send({message: "Data to update can not be empty"});
     }
 
-    const id = req.params.id;
+    var id = req.params.id;
     Users.findByIdAndUpdate(id, req.body, {returnOriginal: false})
         .then(data=>{
             if(!data)
@@ -132,6 +132,34 @@ exports.update = (req,res) =>{
             });
         })
 }
+
+//Update the  user by id
+exports.forgetPassword = (req,res) =>{
+    //validate request
+    if(!req.body){
+            res
+            .status(400)
+            .send({message: "Data to update can not be empty"});
+    }
+
+    var id = req.params.id;
+    Users.updateOne({email:id}, req.body, {returnOriginal: false})
+        .then(data=>{
+            if(!data)
+            {
+                res.status(404).send({message:`Cannot update the user with ${id}. Maybe user not found.`});
+            }
+            else{
+                res.send(data);
+            }
+        })
+        .catch(err=>{
+            res.status(500).send({
+                message:err.message || "Error update user information."
+            });
+        })
+}
+
 
 //Delete a user by user email
 exports.delete = (req,res) =>{

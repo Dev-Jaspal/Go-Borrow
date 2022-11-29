@@ -153,7 +153,7 @@ const handleImage = async (e) =>{
                       onChange={handleChange}/>
                       <span>{formErrors.productName}</span>
                </div>
-               <div className="form-group ml-4">
+               <div className="form-group ml-4 needZindex">
                       <label htmlFor="productPrice" className="sr-only">Product Price</label>
                       <input type="text" id="productPrice" className="form-control" placeholder="Product Price"
                       name="productPrice" 

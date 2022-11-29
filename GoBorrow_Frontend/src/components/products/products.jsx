@@ -25,7 +25,7 @@ if(products === undefined){
 return ( 
     <div className="card-deck p-3 mr-1 mt-5">
     {
-      products.map((product, index)=>
+      products.reverse().map((product, index)=>
             product.borrowedBy === "" &&
                   <Link key={index} className="card text-decoration-none mt-4  " to={"/productdetail/"+`${product._id}`}>
                   <div>

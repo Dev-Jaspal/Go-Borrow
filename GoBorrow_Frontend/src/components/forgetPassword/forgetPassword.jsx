@@ -39,7 +39,7 @@ const ForgetPassword = () => {
     
     if(Object.keys(formErrors).length === 0 && isForgetSubmit) 
     {
-        http.put('/users/'+`${forgetPasswordForm.email}`,{password:forgetPasswordForm.forgetPassword})
+        http.put('/users/forgetpwd/'+`${forgetPasswordForm.email}`,{password:forgetPasswordForm.forgetPassword})
         .then((res) => {
             if(res.data)
             {

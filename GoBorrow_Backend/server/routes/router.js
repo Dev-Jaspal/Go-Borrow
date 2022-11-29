@@ -9,6 +9,7 @@ route.post('/users', usercontroller.create);
 route.get('/users', usercontroller.find);
 route.post('/user/login', usercontroller.login);
 route.put('/users/:id', usercontroller.update);
+route.put('/users/forgetpwd/:id', usercontroller.forgetPassword);
 route.delete('/users/:id', usercontroller.delete);
 
 //Product API
