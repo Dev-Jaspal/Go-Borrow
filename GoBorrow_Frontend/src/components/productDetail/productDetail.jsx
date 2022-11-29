@@ -4,6 +4,8 @@ import './productDetail.css';
 import { useNavigate, useParams } from 'react-router-dom';
 import AuthService from '../../services/apiService';
 import SweetAlert from "react-bootstrap-sweetalert";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGlobe } from "@fortawesome/free-solid-svg-icons";
 
 const ProductDetail = () => {
 
@@ -155,7 +157,7 @@ const handleSubmit = (event) =>{
         {alert}
         <div className="container mt-5">
         <div className="prodDetail-card mt-3 p-3">
-        <a href='#' className='p-2 float-right text-decoration-none text-dark' onClick={() => handleLanguage(prodDetail)}><strong>Change to {language}</strong></a>
+        <a href='#' className='p-2 float-right text-decoration-none text-warning' onClick={() => handleLanguage(prodDetail)}><FontAwesomeIcon  icon={faGlobe} className='mr-2' /><strong>{language}</strong></a>
         <h3 className="p-2 mb-4"><strong>{prodDetail.productName}</strong></h3>
             <div className="d-flex">
             <div className="col-md-4 p-0 ">
