@@ -82,6 +82,7 @@ exports.login = (req,res) =>{
     if(req.body)
     {
         const {email, password} = req.body;
+        console.log(email,)
         Users.findOne({email:email, password:password})
             .then(data => {
                 if(!data){

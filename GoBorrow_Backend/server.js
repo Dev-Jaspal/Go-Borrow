@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
 //cors for cross origin request
-app.use(cors());
+app.use(cors({origin:true}));
 
 //load routers
 app.use('/api', require('./server/routes/router'));
